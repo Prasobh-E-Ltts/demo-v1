@@ -35,4 +35,4 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
       - name: check file lists
-        run: ls -la
+        run: ls /home/runner/work/demo-v1/demo-v1/ -la
