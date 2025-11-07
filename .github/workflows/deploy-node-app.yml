@@ -1,0 +1,28 @@
+name: This is test for azure app Service
+
+on: 
+  push:
+    branches: 
+      - main
+  workflow_dispatch: 
+
+Jobs: 
+    build-node:
+       runs-on: ubuntu-latest
+    permissions: 
+       contents: read
+    
+    steps:
+      - name: checkout the code
+        uses: actions/checkout@v5
+      - name: setup node environment
+        uses: actions/setup-node@v4
+        with: 
+            node-version: '11.9.0'
+      - name: install dependencies
+        run: npm install -y
+      - name: upload to azure app Service
+        uses: azure/webapps-deploy@v2
+        with:
+            app-name: dev-test-v1
+            publish-profile: ${{ secrets.NODEDEVTESTAZUREAPP }}
