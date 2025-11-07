@@ -6,7 +6,7 @@ on:
       - main
   workflow_dispatch: 
 
-Jobs: 
+jobs: 
     build-node:
        runs-on: ubuntu-latest
     permissions: 
