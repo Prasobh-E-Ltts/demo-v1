@@ -26,3 +26,4 @@ Jobs:
         with:
             app-name: dev-test-v1
             publish-profile: ${{ secrets.NODEDEVTESTAZUREAPP }}
+            package: .
