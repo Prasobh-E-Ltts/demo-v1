@@ -1,29 +1,36 @@
-name: This is test for azure app Service
+name: Deploy Node App to Azure App Service
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - main
-  workflow_dispatch: 
+  workflow_dispatch:
 
-jobs: 
-    build-node:
-      runs-on: ubuntu-latest
-      permissions: 
-        contents: read
-    
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: checkout the code
-        uses: actions/checkout@v5
-      - name: setup node environment
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
-        with: 
-            node-version: '11.9.0'
-      - name: install dependencies
-        run: npm install -y
-      - name: upload to azure app Service
+        with:
+          node-version: '14.0'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build (optional)
+        run: npm run build || echo "No build step"
+
+      - name: Zip the app
+        run: zip -r app.zip .
+
+      - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
         with:
-            app-name: dev-test-v1
-            publish-profile: ${{ secrets.NODEDEVTESTAZUREAPP }}
-            package: .
+          app-name: dev-test-v1
+          publish-profile: ${{ secrets.NODEDEVTESTAZUREAPP }}
+          package: app.zip
