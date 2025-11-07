@@ -8,9 +8,9 @@ on:
 
 jobs: 
     build-node:
-       runs-on: ubuntu-latest
-    permissions: 
-       contents: read
+      runs-on: ubuntu-latest
+      permissions: 
+        contents: read
     
     steps:
       - name: checkout the code
