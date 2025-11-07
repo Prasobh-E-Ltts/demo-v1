@@ -20,17 +20,12 @@ jobs:
           node-version: '14.0'
 
       - name: Install dependencies
+        working-directory: ./test
         run: npm install
-
-      - name: Build (optional)
-        run: npm run build || echo "No build step"
-
-      - name: Zip the app
-        run: zip -r app.zip .
 
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
         with:
           app-name: dev-test-v1
           publish-profile: ${{ secrets.NODEDEVTESTAZUREAPP }}
-          package: .
+          package: ./test
